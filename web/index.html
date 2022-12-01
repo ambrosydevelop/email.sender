@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>email.sender</title>
+    <link rel="stylesheet" href="css/style.css">
+    <script type="text/javascript" src="/eel.js"></script>
+    <script>    
+        eel.expose(python_call);   
+        function python_call(x) {
+            document.getElementById('counter value').innerHTML = x
+        };
+        function getItems() {
+            let message = document.getElementById('message').value
+            let subject = document.getElementById('subject').value
+            let file = document.getElementById('file').checked
+            return {'message':message,'subject':subject,'file':file}
+        };
+        async function onClickCall() {
+            await eel.on_click_js(getItems())
+        };
+    </script>
+</head>
+<body>
+    <div class="wrapper">
+        email.sender
+        <form>
+            <div class="form_group">
+                <input type="text" required placeholder="Message" id="message">
+                <input type="text" required placeholder="Subject" id="subject"><br>
+                <label for="">HTML файл</label>
+                <input type="checkbox" placeholder="File" id="file"><br>
+                <button onclick="onClickCall()" id="start_btn">Начать</button> 
+            </div>
+        </form>
+        <div class="counter">
+            <h4>Отправлено:<strong id="counter value">0</strong></h4>
+        </div>
+    </div>
+</body>
+</html>
